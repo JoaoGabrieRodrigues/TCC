@@ -1,0 +1,24 @@
+.card-img {
+  margin-bottom: 50px;
+  border-color: #e6e6e6;
+  max-width: 200px;
+}
+
+img {
+  border-radius: 50%;
+  width: 400px;
+  height: auto;
+}
+
+.card {
+  margin-bottom: 50px;
+  border-color: #e6e6e6;
+  max-width: 1080px;
+}
+
+.logo {
+  background-image: url("/assets/logo2.png");
+  width: 100px;
+  height: 63px;
+  float: left;
+}

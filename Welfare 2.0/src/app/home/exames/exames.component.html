@@ -1,0 +1,140 @@
+<div class="row" *ngFor="let publicacao of publicacoes">
+	<div class="col d-flex justify-content-center">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-4">
+						<img class="img-responsive img-thumbnail img-circle" align="middle" [src]="publicacao.url_imagem || ''" />
+						<p style="color:#424242; font-size: 22px; text-align: center;"><img class="img-text"
+								src="/assets/text.png" /><strong>{{ publicacao.nome }}</strong></p>
+					</div>
+					<div class="col-8">
+						<div class="card-body">
+							<div class="profile-user-info">
+								<div class="profile-info-row">
+									<div class="profile-info-name"><img class="tipo" src="/assets/tipo.png" /> Tipo:</div>
+									<div class="profile-info-value">
+										<span>{{ publicacao.tipoExame }}</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"><img class="tipo" src="/assets/idade.png" /> Data:</div>
+									<div class="profile-info-value">
+										<span>{{ publicacao.data }}</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"><img class="tipo" src="/assets/raca.png" /> Observação:</div>
+									<div class="profile-info-value">
+										<span>{{ publicacao.observacao }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<hr />
+					<button class="btn btn-primary" data-toggle="modal" data-target="#modalEditar"
+						(click)="editarPublicacao(publicacao.key)" style="margin-left: 230px; margin-right: 20px;">EDITAR
+						EXAME</button>
+					<button class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir"
+						(click)="exameKeyExcluir(publicacao.key)">EXCLUIR EXAME</button>
+					<div class="modal" tabindex="-1" role="dialog" id="modalExcluir">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Deseja realmente excluir o exame?</h5>
+
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal"
+										(click)="excluirPublicacao(keyExame)">Excluir Exame</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- MODAL DE EDIÇÃO -->
+					<div class="modal" tabindex="-1" role="dialog" id="modalEditar">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<form [formGroup]="formularioEditar">
+									<div class="modal-header">
+										<h5 class="modal-title">Editar Exame</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<!--------------------------------------------------------TIPOS DE EXAME---------------------------------------------------------->
+										<div class="form-group">
+											<label for="tipoExame">Qual seu Exame</label>
+											<select class="form-control" formControlName="tipoExame" (change)="tipoEx($event)">
+												<option value="Nr">Hemograma</option>
+												<option value="Nr">Ureia e creatinina</option>
+												<option value="Nr">Glicemia</option>
+												<option value="Nr">Colesterol e triglicerídeos</option>
+												<option value="Nr">TSH e T4 livre</option>
+												<option value="Nr">Eletrocardiograma</option>
+												<option value="Nr">Papanicolau</option>
+												<option value="Nr">Mamografia</option>
+												<option value="Otr">Outros</option>
+											</select>
+											<small *ngIf="formularioEditar.get('tipoExame').valid && formularioEditar.get('tipoExame').touched"
+												class="form-text text-success"></small>
+											<small *ngIf="!formularioEditar.get('tipoExame').valid && formularioEditar.get('tipoExame').touched"
+												class="form-text text-danger"></small>
+										</div>
+										<!-------------------------- CASO FOR OUTROS ---------------------------------->
+										<div class="form-group" *ngIf="tipoExame === 'Otr'">
+											<label for="raca">Qual o Exame?</label>
+											<input type="text" class="form-control" formControlName="tipoExame">
+											<small *ngIf="formularioEditar.get('tipoExame').valid && formularioEditar.get('tipoExame').touched"
+												class="form-text text-success"></small>
+											<small *ngIf="!formularioEditar.get('tipoExame').valid && formularioEditar.get('tipoExame').touched"
+												class="form-text text-danger"></small>
+										</div>
+										<!-------------------------------------------------------- DATA ---------------------------------------------------------->
+										<div class="form-group">
+											<label for="data">Data</label>
+											<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+												class="form-control" formControlName="data">
+											<small *ngIf="formularioEditar.get('data').valid && formularioEditar.get('data').touched"
+												class="form-text text-success"></small>
+											<small *ngIf="!formularioEditar.get('data').valid && formularioEditar.get('data').touched"
+												class="form-text text-danger"></small>
+										</div>
+
+										<!--------------------------------------------------------  OBSERVACAO ---------------------------------------------------------->
+										<div class="form-group">
+											<label for="obs">Observação</label>
+											<input type="text" class="form-control" formControlName="obs">
+											<small *ngIf="formularioEditar.get('obs').valid && formularioEditar.get('obs').touched"
+												class="form-text text-success"></small>
+											<small *ngIf="!formularioEditar.get('obs').valid && formularioEditar.get('obs').touched"
+												class="form-text text-danger"></small>
+										</div>
+
+										<!------------------------------ UPLOAD DE FOTOS -------------------------------------------->
+										<div class="form-group">
+											<label for="foto">Foto do seu exame</label>
+											<input type="file" class="form-control" accept="image/*" (change)="preparaImagemUpload($event)">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+										<button class="btn btn-primary" (click)="atualizar(keyExame)"
+											data-dismiss="modal">Atualizar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

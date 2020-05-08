@@ -1,0 +1,16 @@
+<nav class="navbar fixed-top navbar-light bg-white">
+  <div class="container">
+    <div class="logo"></div>
+    <div>
+      <div class="add-post img-responsive" data-toggle="modal" data-target="#exampleModal"></div>
+      <button class="btn btn-danger" style="margin-right: 15px" [routerLink]="['/usuario']">EDITAR USUARIO</button>
+      <a href="#" (click)="sair()" style="margin-left: 25px">Sair</a>
+    </div>
+  </div>
+</nav>
+
+<br /><br /><br />
+<div class="container">
+  <app-exames #publicacoes></app-exames>
+  <app-incluir-exame (atualizarTimeLine)="atualizarTimeLine()"></app-incluir-exame>
+</div>

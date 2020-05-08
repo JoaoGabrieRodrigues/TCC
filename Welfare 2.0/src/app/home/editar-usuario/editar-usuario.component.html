@@ -1,0 +1,105 @@
+<nav
+    class="navbar fixed-top navbar-light bg-white"
+    style="margin-bottom: 40px;"
+>
+    <div class="container">
+        <div class="logo"></div>
+        <div>
+            <button
+                class="btn btn-danger"
+                [routerLink]="['/home']"
+            >
+                VOLTAR PARA HOME
+            </button>
+            <a
+                href="#"
+                (click)="sair()"
+                style="margin-left: 25px"
+            >
+                Sair
+            </a>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-3">
+        <img
+            class="img-responsive img-thumbnail img-circle"
+            align="middle"
+            [src]="fotoUser || ''"
+        >
+    </div>
+    <div class="col-6">
+        <form [formGroup]="formularioUser">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nome"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="endereco">Endereço</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Endereço"
+                    formControlName="endereco"
+                >
+            </div>
+            <div class="form-group">
+                <label for="idade">Idade</label>
+                <input
+                    type="text"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                    class="form-control"
+                    formControlName="idade"
+                >
+            </div>
+            <div class="form-group">
+                <label for="sexo">Sexo</label>
+                <select
+                    class="form-control"
+                    formControlName="sexo"
+                >
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input
+                    type="tel"
+                    class="form-control"
+                    formControlName="telefone"
+                >
+            </div>
+            <div class="form-group">
+                <label for="foto">Sua foto</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    (change)="preparaImagemUpload($event)"
+                >
+            </div>
+            <button
+                type="submit"
+                class="btn btn-primary btn-sm btn-block"
+                (click)="atualizar()"
+            >
+                Atualizar usuário
+            </button>
+
+
+        </form>
+    </div>
+    <div class="col-2"></div>
+</div>

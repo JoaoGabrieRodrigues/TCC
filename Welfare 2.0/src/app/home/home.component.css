@@ -1,0 +1,22 @@
+.navbar {
+  height: 97px;
+  padding: 20px 15px;
+  width: 100%;
+  border-bottom: solid 1px #e6e6e6;
+}
+
+.logo {
+  background-image: url("/assets/logo2.png");
+  width: 100px;
+  height: 63px;
+  float: left;
+}
+
+.add-post {
+  background-image: url("/assets/favi.png");
+  width: 240px;
+  height: 32px;
+  float: left;
+  padding-left: 25px;
+  margin-top: 5px;
+}
